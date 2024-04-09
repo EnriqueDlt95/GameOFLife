@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game of Life</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header><h1>Game of Life</h1></header>
+      <aside class="control-panel">
+        <div>
+          <label for="colorInput">Set Color: </label>
+          <input type="color" id="colorInput" />
+        </div>
+        <!-- <div>
+          <label for="toggleGuide">Show Guide: </label>
+          <input type="checkbox" id="toggleGuide" checked />
+        </div> -->
+        <div>
+          <input type="number" id="inputNumber" placeholder="number of Cells" />
+          <button type="button" id="set">set</button>
+        </div>
+      </aside>
+      <main id="main">
+        <div id="guide"></div>
+        <canvas width="500px" height="500px" id="canvas"></canvas>
+      </main>
+      <footer>footer</footer>
+    </div>
+    <script src="./script.js" type="module"></script>
+  </body>
+</html>
