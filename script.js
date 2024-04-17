@@ -1,7 +1,7 @@
 /**
  * @type HTMLCanvasElement
  */
-import { createRandomMatrix } from "./patterns.js";
+import { createRandomMatrix, createNextMatrix } from "./patterns.js";
 
 // getting our HTML elements:
 const canvas = document.getElementById("canvas");
@@ -14,7 +14,7 @@ const parent = document.getElementById("main");
 //Getting the context from our canvas
 const drawingContext = canvas.getContext("2d");
 
-//setting the amount of pixils per side in our canvas
+//setting the amount of pixels per side in our canvas
 var pixelSideCount = 50;
 
 // calculate the length of each pixel
@@ -104,14 +104,14 @@ set.addEventListener("click", (e) => {
 // }
 
 function paintMatrixCells(matrix) {
-  matrix.forEach((colum, iColum) => {
-    colum.forEach((row, iRow) => {
-      if (row) {
+  matrix.forEach((row, iRow) => {
+    row.forEach((colum, iColum) => {
+      if (colum) {
         colorInput.value = aliveCell;
       } else {
         colorInput.value = deathCell;
       }
-      fillPixel(iColum, iRow);
+      fillPixel(iRow, iColum);
     });
   });
 }
@@ -119,7 +119,8 @@ function paintMatrixCells(matrix) {
 const matrix = createRandomMatrix(pixelSideCount, pixelSideCount);
 paintMatrixCells(matrix);
 
-canvas.addEventListener("mousedown", handleCanvasMouseDown);
-paintMatrixCells(matrix);
-
+// canvas.addEventListener("mousedown", handleCanvasMouseDown);
+const nextMatrix = createNextMatrix(matrix);
+console.log(matrix);
+console.log(nextMatrix);
 toggleGuide.addEventListener("change", handleToggleGuideChange);
