@@ -88,3 +88,5 @@ function getCellsAlive(neighbours) {
 // const matrix = createRandomMatrix();
 // console.log(getNeighbors(0, 0, matrix));
 // console.log(getCellsAlive(getNeighbors(0, 0, matrix)));
+
+

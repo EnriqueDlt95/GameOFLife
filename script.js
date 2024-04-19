@@ -8,7 +8,8 @@ const canvas = document.getElementById("canvas");
 const guide = document.getElementById("guide");
 const colorInput = document.getElementById("colorInput");
 const toggleGuide = document.getElementById("toggleGuide");
-const set = document.getElementById("set");
+const play = document.getElementById("play");
+const pause = document.getElementById("pause");
 const parent = document.getElementById("main");
 
 //Getting the context from our canvas
@@ -28,6 +29,10 @@ let aliveCell = "#009578";
 
 drawingContext.fillStyle = "#ffffff";
 drawingContext.fillRect(0, 0, canvas.width, canvas.height);
+
+// variable to store out IntervalID
+
+let nIntervalId;
 
 //set up guide
 
@@ -75,18 +80,6 @@ function fillPixel(x, y) {
 // });
 // }
 
-set.addEventListener("click", (e) => {
-  const inputNumberOfCells = document.getElementById("inputNumber");
-  console.log(set);
-  console.log(inputNumberOfCells);
-  if (inputNumberOfCells.value === "") {
-    alert(`plese insert a number`);
-  } else {
-    pixelSideCount = inputNumberOfCells.value;
-    refresh();
-  }
-});
-
 // function handleCanvasMouseDown(e) {
 //     if(e.button !== 0){
 //         return ;
@@ -111,16 +104,41 @@ function paintMatrixCells(matrix) {
       } else {
         colorInput.value = deathCell;
       }
-      fillPixel(iRow, iColum);
+      fillPixel(iColum, iRow);
     });
   });
 }
 
-const matrix = createRandomMatrix(pixelSideCount, pixelSideCount);
+let matrix = createRandomMatrix(pixelSideCount, pixelSideCount);
 paintMatrixCells(matrix);
 
-// canvas.addEventListener("mousedown", handleCanvasMouseDown);
-const nextMatrix = createNextMatrix(matrix);
-console.log(matrix);
-console.log(nextMatrix);
+function playGameofLife() {
+  let newMatrix = createNextMatrix(matrix);
+  paintMatrixCells(newMatrix);
+  matrix = [...newMatrix];
+  console.log("play");
+  return matrix;
+}
+
+function startGame() {
+  //check if an inteval has already been set up
+  if (!nIntervalId) {
+    nIntervalId = setInterval(playGameofLife, 500);
+  }
+}
+
+function pauseGame() {
+  clearInterval(nIntervalId);
+  console.log("pause");
+  // release our intervalID from the variable
+  nIntervalId = null;
+}
+
+play.addEventListener("click", startGame);
+pause.addEventListener("click", pauseGame);
 toggleGuide.addEventListener("change", handleToggleGuideChange);
+
+// canvas.addEventListener("mousedown", handleCanvasMouseDown);
+// const nextMatrix = createNextMatrix(matrix);
+// console.log(matrix);
+// console.log(nextMatrix);
